@@ -14,7 +14,7 @@ export default class CollapseEventSubProcess {
     if ( is(element, 'bpmn:SubProcess') && element.businessObject.triggeredByEvent ) {
       return{
         'collapse-event-subprocess': {
-          label: 'Collapse/expand event subprocess',
+          label: 'Collapse/expand event sub-process',
           className: 'bpmn-icon-event-subprocess-expanded',
           action: () => this.toggleCollapse(element)
         }
