@@ -54,8 +54,6 @@ export default function CollapsedEventSubProcessDecorator(
 
     startEvent.width -=14;
     startEvent.height -=14;
-    startEvent.offset =10;
-    startEvent.x +=30;
 
     var startEventShape = this.drawBpmnShape(parentNode, startEvent );
 
