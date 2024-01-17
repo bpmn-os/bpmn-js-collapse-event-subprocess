@@ -11,6 +11,12 @@ import {
   is
 } from 'bpmn-js/lib/util/ModelUtil';
 
+import {
+  create as svgCreate,
+  append as svgAppend,
+  attr as svgAttr
+} from 'tiny-svg';
+
 
 export default function CollapsedEventSubProcessDecorator(
     config, eventBus, styles, pathMap, canvas, textRenderer, modeling, elementRegistry) {
@@ -41,6 +47,7 @@ export default function CollapsedEventSubProcessDecorator(
     const flowElements = shape.businessObject.flowElements;
     const startEvents = flowElements.filter(element => is(element, 'bpmn:StartEvent') );
     if ( startEvents.length != 1 ) {
+      // no unique start event
       return bpmnShape;
     }
 
@@ -49,16 +56,18 @@ export default function CollapsedEventSubProcessDecorator(
       || !startEvent.businessObject.eventDefinitions
       || startEvent.businessObject.eventDefinitions.length == 0
     ) {
+      // no event definition
       return bpmnShape;
     }
 
-    startEvent.width -=14;
-    startEvent.height -=14;
+    var group = svgCreate('g');
 
-    var startEventShape = this.drawBpmnShape(parentNode, startEvent );
+    svgAttr(group, {
+      transform: 'translate(6, 6) scale(0.7)'
+    });
+    svgAppend(parentNode, group);
 
-    startEvent.width +=14;
-    startEvent.height +=14;
+    this.drawBpmnShape(group, startEvent );
 
     return bpmnShape;
   };
