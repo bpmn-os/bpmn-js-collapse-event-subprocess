@@ -9,12 +9,10 @@ export default class CollapseEventSubProcess {
   }
 
   getPopupMenuEntries(element) {
-    if ( is(element, 'bpmn:SubProcess') ) {
-    }
     if ( is(element, 'bpmn:SubProcess') && element.businessObject.triggeredByEvent ) {
       return{
         'collapse-event-subprocess': {
-          label: 'Collapse/expand event subprocess',
+          label: 'Collapse/expand event sub-process',
           className: 'bpmn-icon-event-subprocess-expanded',
           action: () => this.toggleCollapse(element)
         }
