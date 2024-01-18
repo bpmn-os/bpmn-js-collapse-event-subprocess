@@ -1,5 +1,9 @@
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
+import {
+  isExpanded
+} from 'bpmn-js/lib/util/DiUtil';
+
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 
 export default class CollapseEventSubProcess {
@@ -12,7 +16,7 @@ export default class CollapseEventSubProcess {
     if ( is(element, 'bpmn:SubProcess') && element.businessObject.triggeredByEvent ) {
       return{
         'collapse-event-subprocess': {
-          label: 'Collapse/expand event sub-process',
+          label: 'Event sub-process ' + ( isExpanded(element) ? '(collapsed)' : '(expanded)' ),
           className: 'bpmn-icon-event-subprocess-expanded',
           action: () => this.toggleCollapse(element)
         }

@@ -52,7 +52,8 @@ export default function CollapsedEventSubProcessDecorator(
     }
 
     const startEvent = elementRegistry.get(startEvents[0].id);
-    if ( !startEvent.businessObject
+    if ( !startEvent
+      || !startEvent.businessObject
       || !startEvent.businessObject.eventDefinitions
       || startEvent.businessObject.eventDefinitions.length == 0
     ) {
@@ -63,7 +64,7 @@ export default function CollapsedEventSubProcessDecorator(
     var group = svgCreate('g');
 
     svgAttr(group, {
-      transform: 'translate(6, 6) scale(0.7)'
+      transform: 'translate(6, 6) scale(0.667)'
     });
     svgAppend(parentNode, group);
 
@@ -73,7 +74,7 @@ export default function CollapsedEventSubProcessDecorator(
   };
 
   eventBus.on("root.set", event => {
-    if ( !event.element.businessObject ) {
+    if ( !event.element || !event.element.businessObject ) {
       return;
     }
     for (let element of event.element.businessObject.flowElements ) {
