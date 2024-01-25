@@ -44,7 +44,7 @@ export default function CollapsedEventSubProcessDecorator(
   this.drawShape = function(parentNode, shape) {
     var bpmnShape = this.drawBpmnShape(parentNode, shape);
 
-    const flowElements = shape.businessObject.flowElements;
+    const flowElements = shape.businessObject.flowElements || [];
     const startEvents = flowElements.filter(element => is(element, 'bpmn:StartEvent') );
     if ( startEvents.length != 1 ) {
       // no unique start event
@@ -74,7 +74,7 @@ export default function CollapsedEventSubProcessDecorator(
   };
 
   eventBus.on("root.set", event => {
-    if ( !event.element || !event.element.businessObject ) {
+    if ( !event.element || !event.element.businessObject || !event.element.businessObject.flowElements) {
       return;
     }
     for (let element of event.element.businessObject.flowElements ) {
